@@ -1,6 +1,9 @@
 class User < ApplicationRecord
   include ActiveModel::Serialization
-  has_secure_password
+  has_secure_password(validations: false)
+
+  validates_confirmation_of :password, if: :password_present
+  validates_presence_of :password, on: :create
   
   validates :first_name, :last_name,
             length: { in: 2..20, message: 'must be between 2 and 20 characters.' },
@@ -20,7 +23,7 @@ class User < ApplicationRecord
             },
             length: {
               minimum: 8, message: 'must be at least 8 characters.'
-            }
+            }, if: :password_present
 
   before_create :set_defaults
   before_save :set_cases
@@ -64,6 +67,10 @@ class User < ApplicationRecord
     save!(:validate => false)
   end
 
+  def as_hash
+    %i[id first_name last_name email created_at].each_with_object({}) { |f, h| h[f] = send(f) }
+  end
+
   private
 
   def set_defaults
@@ -77,5 +84,9 @@ class User < ApplicationRecord
 
   def set_cases
     email.downcase!
+  end
+
+  def password_present
+    password.present?
   end
 end

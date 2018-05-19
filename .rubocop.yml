@@ -1,0 +1,47 @@
+Style/Documentation:
+  Enabled: false
+
+Style/StringLiterals:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 140
+
+Metrics/MethodLength:
+  Max: 20
+
+Metrics/ClassLength:
+  Max: 200
+
+Metrics/ModuleLength:
+  Max: 200
+
+Layout/AlignParameters:
+  Enabled: false
+
+Layout/TrailingBlankLines:
+  EnforcedStyle: final_newline
+
+Metrics/AbcSize:
+  Enabled: false
+
+AllCops:
+  TargetRubyVersion: 2.5+
+  Exclude:
+    - '**/*.gemspec'
+    - '**/Rakefile'
+
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: comma
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: comma
+
+Style/MutableConstant:
+  Enabled: false
