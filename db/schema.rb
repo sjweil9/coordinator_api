@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_18_032313) do
+ActiveRecord::Schema.define(version: 2018_05_19_022721) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "invites", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "list_id"
+    t.boolean "accepted"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["list_id"], name: "index_invites_on_list_id"
+    t.index ["user_id"], name: "index_invites_on_user_id"
+  end
 
   create_table "list_users", force: :cascade do |t|
     t.bigint "list_id"
@@ -67,6 +77,8 @@ ActiveRecord::Schema.define(version: 2018_05_18_032313) do
     t.datetime "last_attempt"
   end
 
+  add_foreign_key "invites", "lists"
+  add_foreign_key "invites", "users"
   add_foreign_key "list_users", "lists"
   add_foreign_key "list_users", "users"
   add_foreign_key "task_users", "tasks"
