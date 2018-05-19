@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   def create
-    user_generator = UserGenerator.new(create_user_params)
-    render json: user_generator
+    user_generator = UserGenerator.new(create_user_params).generate
+    render json: user_generator, status: 201
   end
 
   private
