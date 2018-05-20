@@ -19,7 +19,7 @@ class User < ApplicationRecord
   validates :password,
             format: {
               with: /\A(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%&?]).{8,72}\z/,
-              message: 'format invalid.'
+              message: 'format invalid.',
             },
             length: {
               minimum: 8, message: 'must be at least 8 characters.'
