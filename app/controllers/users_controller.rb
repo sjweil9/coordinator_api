@@ -13,6 +13,7 @@ class UsersController < ApplicationController
   end
 
   def index
-    
+    users = UserSearcher.new(params).search
+    render json: users, each_serializer: UserSerializer, status: 200
   end
 end
