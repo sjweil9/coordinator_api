@@ -11,4 +11,8 @@ class UsersController < ApplicationController
     user = User.find(params[:user_id])
     render json: user, status: 200
   end
+
+  def index
+    
+  end
 end

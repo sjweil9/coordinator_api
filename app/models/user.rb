@@ -52,6 +52,19 @@ class User < ApplicationRecord
   has_many :accepted_lists, through: :accepted_invites, source: :list
   has_many :pending_lists, through: :pending_invites, source: :list
 
+  has_many :friendships, dependent: :destroy
+  has_many :accepted_friendships, -> { where(accepted: true) }, class_name: 'Friendship'
+  has_many :pending_friendships, -> { where(accepted: false) }, class_name: 'Friendship'
+  
+  has_many :inverse_friendships, class_name: 'Friendship', dependent: :destroy
+  has_many :accepted_inverse_friendships, -> { where(accepted: true) }, foreign_key: :friend_id, class_name: 'Friendship'
+  has_many :pending_inverse_friendships, -> { where(accepted: false) }, foreign_key: :friend_id, class_name: 'Friendship'
+
+  has_many :accepted_friends, through: :accepted_friendships, source: :friend
+  has_many :pending_friends, through: :pending_friendships, source: :friend
+  
+  has_many :accepted_friended_by_users, through: :accepted_inverse_friendships, source: :user
+  has_many :pending_friended_by_users, through: :pending_inverse_friendships, source: :user
 
   def activate_email
     self.email_confirmed = true
