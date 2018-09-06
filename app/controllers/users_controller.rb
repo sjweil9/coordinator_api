@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  # remove index from these - only for dev
   skip_before_action :authenticate_request, only: %i[create index]
   skip_before_action :authorize_request, only: %i[create index]
 

@@ -6,4 +6,8 @@ Rails.application.routes.draw do
   patch '/users/:user_id', to: 'users#update'
 
   post '/login', to: 'authentication#login'
+
+  get '/tasks', to: 'tasks#index'
+
+  get '/lists', to: 'lists#index'
 end
