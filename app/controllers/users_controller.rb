@@ -17,4 +17,8 @@ class UsersController < ApplicationController
     users = User.all
     render json: users, each_serializer: UserSerializer, status: 200
   end
+
+  def current_user_profile
+    render json: current_user, status: 200
+  end
 end
