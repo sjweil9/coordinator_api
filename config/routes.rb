@@ -12,5 +12,8 @@ Rails.application.routes.draw do
 
   get '/users/:user_id/lists', to: 'lists#lists_for_user'
   post '/users/:user_id/lists', to: 'lists#create_for_user'
+  
   get '/lists', to: 'lists#index'
+  get '/lists/:id', to: 'lists#show'
+  get '/lists/:id/tasks', to: 'tasks#tasks_for_list'
 end

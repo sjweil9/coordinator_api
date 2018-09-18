@@ -7,6 +7,7 @@ class UserAuth
     end
 
     def decode(token)
+      Thread.current[:user_info] = nil
       body = JWT.decode(token, Rails.application.credentials.secret_key_base)[0]
       expiration = body.delete('expiration')
       return if body.nil? || expiration.nil? || Time.parse(expiration) < Time.now.utc

@@ -7,12 +7,14 @@ class Task < ApplicationRecord
   belongs_to :list
 
   has_many :task_users
-  has_many :completed_task_users, -> { where(completed: true) }, class_name: 'TaskUser'
-  has_many :claimed_task_users, -> { where(completed: false) }, class_name: 'TaskUser'
+  has_one :completed_task_user, -> { where(completed: true) }, class_name: 'TaskUser'
+  has_one :claimed_task_user, -> { where(completed: false) }, class_name: 'TaskUser'
+  has_one :created_user, -> { where(created: true) }, class_name: 'TaskUser'
   
   has_many :users, through: :task_users
-  has_many :completed_users, through: :completed_task_users, source: :user
-  has_many :claimed_users, through: :claimed_task_users, source: :user
+  has_one :completed_user, through: :completed_task_user, source: :user
+  has_one :claimed_user, through: :claimed_task_user, source: :user
+  has_one :created_user, through: :created_user, source: :user
 
   before_validation :set_defaults, on: :create
   before_save :convert_times_to_utc

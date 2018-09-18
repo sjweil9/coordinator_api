@@ -5,5 +5,5 @@ class ListSerializer < ActiveModel::Serializer
     relation.includes(:created_user)
   end
 
-  has_one :created_user
+  has_one :created_user, serializer: UserSerializer
 end
