@@ -6,4 +6,5 @@ class ListSerializer < ActiveModel::Serializer
   end
 
   has_one :created_user, serializer: UserSerializer
+  has_many :tasks
 end

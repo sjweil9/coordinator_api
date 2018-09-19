@@ -1,6 +1,5 @@
 class Task < ApplicationRecord
-  validates :title, length: { in: 1..50, message: 'must be between 1 and 50 characters.' }
-  validates :description, length: { in: 1..150, message: 'must be between 1 and 150 characters.' }
+  validates :title, length: { in: 1..50, message: 'Title must be between 1 and 50 characters.' }
   validate :status_in_valid_list
   validate :due_at_in_future, on: :create
 
@@ -9,12 +8,12 @@ class Task < ApplicationRecord
   has_many :task_users
   has_one :completed_task_user, -> { where(completed: true) }, class_name: 'TaskUser'
   has_one :claimed_task_user, -> { where(completed: false) }, class_name: 'TaskUser'
-  has_one :created_user, -> { where(created: true) }, class_name: 'TaskUser'
+  has_one :created_task_user, -> { where(created: true) }, class_name: 'TaskUser'
   
   has_many :users, through: :task_users
   has_one :completed_user, through: :completed_task_user, source: :user
   has_one :claimed_user, through: :claimed_task_user, source: :user
-  has_one :created_user, through: :created_user, source: :user
+  has_one :created_user, through: :created_task_user, source: :user
 
   before_validation :set_defaults, on: :create
   before_save :convert_times_to_utc
