@@ -18,6 +18,10 @@ class Task < ApplicationRecord
   before_validation :set_defaults, on: :create
   before_save :convert_times_to_utc
 
+  def claimed?
+    status == 'claimed'
+  end
+
   private
 
   def set_defaults

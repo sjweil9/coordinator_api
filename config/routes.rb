@@ -16,4 +16,6 @@ Rails.application.routes.draw do
   get '/lists', to: 'lists#index'
   get '/lists/:id', to: 'lists#show'
   get '/lists/:id/tasks', to: 'tasks#tasks_for_list'
+
+  patch '/lists/:list_id/tasks/:task_id/status', to: 'tasks#status'
 end
