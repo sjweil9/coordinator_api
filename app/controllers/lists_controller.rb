@@ -5,8 +5,8 @@ class ListsController < ApplicationController
   end
 
   def show
-    list = List.includes(:created_user, tasks: %i[claimed_user completed_user created_user]).references(:created_user, tasks: %i[claimed_user completed_user created_user]).where(id: pure[:id])
-    render json: list.first, include: ['created_user', 'tasks', 'tasks.claimed_user', 'tasks.completed_user', 'tasks.created_user'], status: 200
+    list = List.includes(:created_user, tasks: %i[claimed_user created_user]).references(:created_user, tasks: %i[claimed_user created_user]).references(:created_user, tasks: %i[claimed_user created_user]).where(id: pure[:id])
+    render json: list.first, include: ['created_user', 'tasks', 'tasks.claimed_user', 'tasks.created_user'], status: 200
   end
 
   def create_for_user

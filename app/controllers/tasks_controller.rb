@@ -22,8 +22,15 @@ class TasksController < ApplicationController
     render json: task_generator, status: 201
   end
 
+  def delete
+    task.destroy
+    render json: { status: 'success' }, status: 200
+  end
+
+  private
+
   def task
-    @task ||= Task.find(params[:task_id])
+    @task ||= Task.find(params[:id])
   end
 
   def authorize!

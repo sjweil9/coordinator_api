@@ -18,5 +18,6 @@ Rails.application.routes.draw do
   get '/lists/:id/tasks', to: 'tasks#tasks_for_list'
   post '/lists/:id/tasks', to: 'tasks#add_task_to_list'
 
-  patch '/lists/:list_id/tasks/:task_id/status', to: 'tasks#status'
+  patch '/lists/:list_id/tasks/:id/status', to: 'tasks#status'
+  delete '/tasks/:id', to: 'tasks#delete'
 end
