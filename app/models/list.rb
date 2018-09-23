@@ -13,7 +13,7 @@ class List < ApplicationRecord
 
   has_many :users, through: :list_users
   has_one :created_user, through: :created_list_user, source: :user
-  has_many :followed_list_users, through: :followed_list_users, source: :user
+  has_many :followed_users, through: :followed_list_users, source: :user
 
   has_many :invitees, class_name: 'Invite'
   has_many :accepted_invitees, -> { where(accepted: true) }, class_name: 'Invite'
