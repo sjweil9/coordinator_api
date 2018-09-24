@@ -17,13 +17,13 @@ class ListsController < ApplicationController
   end
 
   def lists_for_user
-    @user = User.find(pure[:user_id])
-    lists = list_base_query.where(list_users: { user_id: @user.id})
+    lists = list_base_query.where(list_users: { user_id: pure[:user_id] })
     render json: lists.all, each_serialier: ListSerializer, status: 200
   end
 
   def add_invitee_to_list
-    Invite.create(accepted: false, user_id: pure[:invited_user_id], list_id: pure[:id])
+    existing_invite = Invite.where(user_id: pure[:invited_user_id], list_id: pure[:id])
+    Invite.create(accepted: false, user_id: pure[:invited_user_id], list_id: pure[:id]) unless existing_invite
     render json: list, status: 201
   end
 

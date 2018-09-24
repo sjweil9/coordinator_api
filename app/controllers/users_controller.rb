@@ -29,6 +29,6 @@ class UsersController < ApplicationController
   end
 
   def current_user_profile
-    render json: current_user, status: 200
+    render json: User.find(current_user[:id]), status: 200
   end
 end
