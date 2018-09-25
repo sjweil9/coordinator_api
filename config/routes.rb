@@ -12,14 +12,14 @@ Rails.application.routes.draw do
 
   get '/users/:user_id/lists', to: 'lists#lists_for_user'
   post '/users/:user_id/lists', to: 'lists#create_for_user'
-  get '/users/:user_id/invites', to: 'users#invites_for_user'
-  patch '/users/:user_id/invites/:id/accepted', to: 'users#accept_invite'
+  get '/users/:user_id/invites', to: 'invites#index'
+  patch '/users/:user_id/invites/:id/accepted', to: 'invites#accept'
   
   get '/lists', to: 'lists#index'
   get '/lists/:id', to: 'lists#show'
   get '/lists/:id/tasks', to: 'tasks#tasks_for_list'
   post '/lists/:id/tasks', to: 'tasks#add_task_to_list'
-  post '/lists/:id/invitees', to: 'lists#add_invitee_to_list'
+  post '/lists/:id/invitees', to: 'invites#create'
 
   patch '/lists/:list_id/tasks/:id/status', to: 'tasks#status'
   delete '/tasks/:id', to: 'tasks#delete'

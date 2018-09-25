@@ -18,6 +18,7 @@ class ListsController < ApplicationController
 
   def lists_for_user
     lists = list_base_query.where(list_users: { user_id: pure[:user_id] })
+      .or(list_base_query.where(invites: { user_id: pure[:user_id], accepted: true }))
     render json: lists.all, each_serialier: ListSerializer, status: 200
   end
 
