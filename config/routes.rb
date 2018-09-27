@@ -12,6 +12,11 @@ Rails.application.routes.draw do
 
   get '/users/:user_id/lists', to: 'lists#lists_for_user'
   post '/users/:user_id/lists', to: 'lists#create_for_user'
+  get '/users/:user_id/friends', to: 'users#friends'
+  
+  post '/users/:user_id/friends', to: 'friendships#create'
+  patch '/users/:user_id/friends/:friend_id', to: 'friendships#accept'
+
   get '/users/:user_id/invites', to: 'invites#index'
   patch '/users/:user_id/invites/:id/accepted', to: 'invites#accept'
   

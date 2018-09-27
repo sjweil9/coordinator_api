@@ -22,16 +22,10 @@ class ListsController < ApplicationController
     render json: lists.all, each_serialier: ListSerializer, status: 200
   end
 
-  def add_invitee_to_list
-    existing_invite = Invite.where(user_id: pure[:invited_user_id], list_id: pure[:id])
-    Invite.create(accepted: false, user_id: pure[:invited_user_id], list_id: pure[:id]) unless existing_invite
-    render json: list, status: 201
-  end
-
   private
 
-  def pure
-    params.permit(%i[id user_id invited_user_id]).to_h
+  def permitted_fields
+    %i[id user_id invited_user_id]
   end
 
   def list

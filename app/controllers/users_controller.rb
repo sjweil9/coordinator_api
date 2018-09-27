@@ -18,17 +18,24 @@ class UsersController < ApplicationController
     render json: users, each_serializer: UserSerializer, status: 200
   end
 
-  def invites_for_user
-    invites = Invite.includes(list: %i[created_user]).references(list: %i[created_user]).where(user_id: params[:user_id], accepted: false)
-    render json: invites, include: ['list', 'list.created_user'], each_serializer: InviteSerializer, status: 200
-  end
-
-  def accept_invite
-    invite = Invite.find(params[:id]).update(accepted: true)
-    render json: { status: 'success' }, status: 200
+  def friends
+    invited_friends = user.send(pure[:accepted] == 'true' ? :accepted_friends : :pending_friends)
+    invited_by_friends = user.send(pure[:accepted] == 'true' ? :accepted_friended_by_users : :pending_friended_by_users )
+    friends = invited_friends + invited_by_friends
+    render json: friends, each_serializer: UserSerializer, status: 200
   end
 
   def current_user_profile
     render json: User.find(current_user[:id]), status: 200
+  end
+
+  private
+
+  def user
+    @user ||= User.find(current_user[:id])
+  end
+
+  def permitted_fields
+    %i[accepted user_id]
   end
 end

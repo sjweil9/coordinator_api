@@ -30,4 +30,13 @@ class ApplicationController < ActionController::API
   def unauthorized_resource?
     params[:user_id] && params[:user_id].to_i != current_user[:id].to_i
   end
+
+  def pure
+    params.permit(permitted_fields).to_h
+  end
+
+  def permitted_fields
+    # override me
+    []
+  end
 end
