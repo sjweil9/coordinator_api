@@ -22,4 +22,12 @@ class List < ApplicationRecord
   has_many :invited_users, through: :invitees, source: :user
   has_many :accepted_users, through: :accepted_invitees, source: :user
   has_many :pending_users, through: :pending_invitees, source: :user
+
+  def belongs_to_user?
+    created_by_user? || followed_users.map(&:id).include?(current_user[:id])
+  end
+
+  def created_by_user?
+    created_user.id == current_user[:id]
+  end
 end

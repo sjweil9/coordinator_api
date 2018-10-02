@@ -1,6 +1,10 @@
 class InvitesController < ApplicationController
   def accept
-    Invite.find(pure[:id]).update(accepted: pure[:accepted])
+    invite = Invite.find(pure[:id])
+    if invite.pending?
+      invite.update(accepted: pure[:accepted])
+      ListUser.create(list_id: invite.list_id, user_id: invite.user_id)
+    end
     render json: { status: 'success' }, status: 200
   end
 
