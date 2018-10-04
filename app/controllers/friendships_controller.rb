@@ -10,9 +10,14 @@ class FriendshipsController < ApplicationController
     render json: { status: 'success' }, status: 200
   end
 
+  def update
+    Friendship.find(pure[:id]).update(accepted: pure[:accepted])
+    render json: { status: 'success' }, status: 200
+  end
+
   private
 
   def permitted_fields
-    %i[user_id friend_id]
+    %i[user_id friend_id id accepted]
   end
 end

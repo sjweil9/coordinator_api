@@ -20,7 +20,7 @@ class UsersController < ApplicationController
 
   def friends
     invited_friends = user.send(pure[:accepted] == 'true' ? :accepted_friends : :pending_friends)
-    invited_by_friends = user.send(pure[:accepted] == 'true' ? :accepted_friended_by_users : :pending_friended_by_users)
+    invited_by_friends = pure[:accepted] == 'true' ? user.send(:accepted_friended_by_users) : []
     friends = invited_friends + invited_by_friends
     render json: friends, each_serializer: UserSerializer, status: 200
   end
@@ -31,6 +31,15 @@ class UsersController < ApplicationController
     search_query = "%#{pure[:search]}%".downcase if pure[:search].present?
     not_friends = not_friends.where("lower(first_name) LIKE ? OR lower(last_name) LIKE ? OR lower(email) LIKE ?", search_query, search_query, search_query) if pure[:search].present?
     render json: not_friends, each_serializer: UserSerializer, status: 200
+  end
+
+  def pending_friends
+    friendships = Friendship
+                    .includes(:user, :friend)
+                    .references(:user, :friend)
+                    .where(friend_id: current_user[:id], accepted: false)
+                    .all
+    render json: friendships, each_serializer: FriendshipSerializer, status: 200
   end
 
   def current_user_profile
