@@ -13,7 +13,9 @@ class TasksController < ApplicationController
 
   def status
     claimed_user = params[:status] == 'unclaimed' ? nil : User.find(current_user[:id])
-    task.update(status: params[:status], claimed_user: claimed_user)
+    ActiveRecord::Base.transaction do
+      task.update(status: params[:status], claimed_user: claimed_user)
+    end
     render json: task, include: ['claimed_user', 'created_user'], serializer: TaskSerializer, status: 200
   end
 
@@ -34,6 +36,9 @@ class TasksController < ApplicationController
   end
 
   def authorize!
-    raise ApiExceptions::AuthorizationError if task.claimed? && task.claimed_user.id != current_user[:id]
+    return unless task.claimed? && task.claimed_user.id != current_user[:id]
+
+    message = "Task has already been claimed by #{task.claimed_user.first_name} #{task.claimed_user.last_name}"
+    raise ApiExceptions::AuthorizationError.new(message: message)
   end
 end

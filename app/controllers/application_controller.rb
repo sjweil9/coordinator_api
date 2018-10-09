@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::API
   rescue_from ActiveRecord::RecordNotFound, with: :catch_not_found
   rescue_from ApiExceptions::BaseException, with: :render_error_response
+  rescue_from ActiveRecord::StaleObjectError, with: :catch_lock_error
 
   before_action :authenticate_request, :authorize_request
 
@@ -12,6 +13,10 @@ class ApplicationController < ActionController::API
 
   def catch_not_found(error)
     render_error_response(ApiExceptions::NotFound.new(error.message))
+  end
+
+  def catch_lock_error(error)
+    render_error_response(ApiExceptions::LockError.new(error))
   end
 
   def authenticate_request
