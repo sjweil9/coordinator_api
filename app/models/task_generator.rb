@@ -2,12 +2,11 @@ class TaskGenerator
   include ActiveModel::Serialization
   attr_reader :task, :task_params
 
-  VALID_TASK_PARAMS = %i[title description due_at status]
+  VALID_TASK_PARAMS = %i[title description due_at status list_id]
 
   def initialize(params)
     @task_params = params.permit(*VALID_TASK_PARAMS)
     @task_params[:created_user] = current_user
-    @task_params[:list_id] = params[:id]
     @task_params[:claimed_user] = current_user if task_params[:status] == 'claimed'
   end
 

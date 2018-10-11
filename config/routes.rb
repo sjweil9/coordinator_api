@@ -27,9 +27,11 @@ Rails.application.routes.draw do
   get '/lists', to: 'lists#index'
   get '/lists/:id', to: 'lists#show'
   get '/lists/:id/tasks', to: 'tasks#tasks_for_list'
-  post '/lists/:id/tasks', to: 'tasks#add_task_to_list'
+  post '/lists/:list_id/tasks', to: 'tasks#add_task_to_list'
   post '/lists/:id/invitees', to: 'invites#create'
 
   patch '/lists/:list_id/tasks/:id/status', to: 'tasks#status'
   delete '/tasks/:id', to: 'tasks#delete'
+
+  mount ActionCable.server => '/cable'
 end
