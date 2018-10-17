@@ -1,5 +1,5 @@
 class ListsController < ApplicationController
-  before_action :authorize_ownership!, only: %i[add_invitee_to_list]
+  before_action :authorize_ownership!, only: %i[add_invitee_to_list delete]
   before_action :authorize_membership!, only: %i[show]
 
   def index
@@ -10,6 +10,11 @@ class ListsController < ApplicationController
   def show
     list_with_joins = list_base_query.where(id: pure[:id])
     render json: list_with_joins.first, include: ['created_user', 'pending_users', 'followed_users', 'tasks', 'tasks.claimed_user', 'tasks.created_user'], status: 200
+  end
+
+  def delete
+    list.destroy
+    render json: { status: 'success' }, status: 204
   end
 
   def create_for_user

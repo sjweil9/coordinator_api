@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   
   get '/lists', to: 'lists#index'
   get '/lists/:id', to: 'lists#show'
+  delete '/lists/:id', to: 'lists#delete'
   get '/lists/:id/tasks', to: 'tasks#tasks_for_list'
   post '/lists/:list_id/tasks', to: 'tasks#add_task_to_list'
   post '/lists/:id/invitees', to: 'invites#create'
