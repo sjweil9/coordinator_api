@@ -27,7 +27,8 @@ class UsersController < ApplicationController
 
   def not_friends
     friend_ids = [*user.accepted_friends.select(:id).map(&:id), *user.accepted_friended_by_users.select(:id).map(&:id)]
-    not_friends = User.where.not(id: [*friend_ids, current_user[:id]])
+    pending_friend_ids = user.pending_friends.select(:id).map(&:id)
+    not_friends = User.where.not(id: [*friend_ids, *pending_friend_ids, current_user[:id]])
     search_query = "%#{pure[:search]}%".downcase if pure[:search].present?
     not_friends = not_friends.where("lower(first_name) LIKE ? OR lower(last_name) LIKE ? OR lower(email) LIKE ?", search_query, search_query, search_query) if pure[:search].present?
     render json: not_friends, each_serializer: UserSerializer, status: 200
