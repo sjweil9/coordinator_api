@@ -14,7 +14,7 @@ class ListsController < ApplicationController
 
   def delete
     list.destroy
-    render json: { status: 'success' }, status: 204
+    render json: { status: 'success' }, status: 200
   end
 
   def create_for_user
