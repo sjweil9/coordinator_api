@@ -1,33 +1,10 @@
-# README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
 # Coordinator API
 
-This is the backend API for https://github.com/sjweil9/coordinator_app / https://expo.io/@sjweil9/coordinator_app
+Coordinator is a mobile app for concurrent editing of To-Do lists. Users can add friends and invite them to collaborate on lists, where each can mark tasks as claimed or completed with real-time updates to all other list collaborators.
 
-It is not intended for use as a public API, the endpoints are designed specifically for required App functionality. 
+This is the backend API for the App, hosted at https://github.com/sjweil9/coordinator_app / https://expo.io/@sjweil9/coordinator_app
+
+It is not intended for use as a public API, the endpoints are designed specifically for required App functionality.
 
 ## Requirements
 
