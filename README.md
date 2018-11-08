@@ -1,6 +1,6 @@
 # Coordinator API
 
-Coordinator is a mobile app for concurrent editing of To-Do lists. Users can add friends and invite them to collaborate on lists, where each can mark tasks as claimed or completed with real-time updates to all other list collaborators.
+Coordinator is a mobile app for concurrent editing of To-Do lists. Users can add friends and invite them to collaborate on lists, where each can mark tasks as claimed or completed with real-time updates to all other list collaborators. This is a personal project developed for the purpose of learning React Native. It is not intended for any commerical use.
 
 This is the backend API for the App, hosted at https://github.com/sjweil9/coordinator_app / https://expo.io/@sjweil9/coordinator_app
 
